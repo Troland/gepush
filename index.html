@@ -43,8 +43,17 @@
           })
         }, false);
 
+        document.addEventListener('newintent', function () {
+          var args = plus.runtime.arguments;
+          plus.push.createMessage('ok', 'kid', {
+             title: 'sidfdf',
+             cover: false
+          });
+        });
+
         // 监听点击消息事件
         plus.push.addEventListener( "click", function( msg ) {
+          alert('in push click event');
             // alert(JSON.stringify(msg));
             // mui.openWindow({
             //   id: 'test-html',
@@ -67,10 +76,16 @@
         // 监听在线消息事件
         plus.push.addEventListener( "receive", function( msg ) {
           alert(JSON.stringify(msg));
-          mui.openWindow({
-            id: 'test-html',
-            url: 'test.html'
+          // var msg =
+          //创建本地消息
+          plus.push.createMessage(msg.content, msg.payload, {
+             title: msg.title,
+             cover: false
           });
+          // mui.openWindow({
+          //   id: 'test-html',
+          //   url: 'test.html'
+          // });
             // if ( msg.aps ) {  // Apple APNS message
             //     outSet( "接收到在线APNS消息：" );
             // } else {
